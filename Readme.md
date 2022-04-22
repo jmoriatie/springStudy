@@ -20,6 +20,8 @@ ___
 
 ###### Spring 활용
 * Container의 이해
+* BeanDefinition 이해
+* spring 의 @Configuration 과 @Bean 에 대한 이해
 
 
 

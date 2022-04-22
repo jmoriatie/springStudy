@@ -32,4 +32,9 @@ public class OrderServiceImpl implements OrderService{
         int discountPrice = discountPolicy.discount(member, itemPrice);
         return new Order(memberId, itemName, itemPrice, discountPrice);
     }
+
+    // 싱글톤 테스트용 // 인터페이스에 작성해주지 않음
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
 }
