@@ -1,14 +1,16 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 // cmd + F12 : 작성된 생성자와 메서드 확인 가능 (Lombok 으로 만들어진 것도 확인 가능)
 @Component
-@RequiredArgsConstructor // final 이 붙으면 생성자를 만들어준다
+//@RequiredArgsConstructor // final 이 붙으면 생성자를 만들어준다
 public class OrderServiceImpl implements OrderService{
 
     // 1. 멤버리포지토리 회원찾기 - memoryMember
@@ -53,7 +55,13 @@ public class OrderServiceImpl implements OrderService{
 //        this.discountPolicy = discountPolicy;
 //    }
 
-
+    // Qualifier 를 컴파일 단계에서 오류를 발생시킬 수 있도록 설계하는 방식
+    // @MainDiscountPolicy 안에 @Qualifier 가 정의되어있기 때문에 가능
+    @Autowired
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {

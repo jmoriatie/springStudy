@@ -28,7 +28,9 @@ ___
   - @Autowired 필드 명 매칭 : 타입매칭 -> 빈 이름 매칭 (*파라미터명을 컨트롤 해서 특정)
   - @Qualifier @Qualifier끼리 매칭 -> 빈 이름 매칭 (*매칭하고 싶은 클래스에 지정하고, 메서드에서 파라미터 앞부분 수정)
   - @Primary 사용 -> 중복 bean 중 먼저 부르고자하는 bean에 @Primary 를 붙여준다 : 얘를 먼저 가져와!
-
+* Qualifier 의 문제점
+  - 문자열을 사용하기 때문에, compile 단계에서 체크가 안됨
+  - 따라서, 별도의 커스텀 어노테이션을 만들어 사용 (MainDiscountPolicy)
 
 
 
