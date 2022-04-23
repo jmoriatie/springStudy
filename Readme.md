@@ -22,6 +22,8 @@ ___
 * Container의 이해
 * BeanDefinition 이해
 * spring 의 @Configuration 과 @Bean 에 대한 이해
+* BeanDefiniton의 이해, Spring의@bean과 @configuration 어노테이션에 대한 이해
+* @componentscan, @component, @Autowired 에 대한 이해
 
 
 
