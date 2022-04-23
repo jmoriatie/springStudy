@@ -24,6 +24,10 @@ ___
 * spring 의 @Configuration 과 @Bean 에 대한 이해
 * BeanDefiniton의 이해, Spring의@bean과 @configuration 어노테이션에 대한 이해
 * @componentscan, @component, @Autowired 에 대한 이해
+* 주입 시 2개 이상의 Bean 타입이 매칭됐을 때(상속 된 클래스가 2개 중복!)
+  - @Autowired 필드 명 매칭 : 타입매칭 -> 빈 이름 매칭 (*파라미터명을 컨트롤 해서 특정)
+  - @Qualifier @Qualifier끼리 매칭 -> 빈 이름 매칭 (*매칭하고 싶은 클래스에 지정하고, 메서드에서 파라미터 앞부분 수정)
+  - @Primary 사용 -> 중복 bean 중 먼저 부르고자하는 bean에 @Primary 를 붙여준다 : 얘를 먼저 가져와!
 
 
 
