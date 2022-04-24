@@ -60,14 +60,35 @@ ___
 
 * [빈생명주기 콜백 사용 방법과 역사]
 * 스프링컨테이너생성 - 스프링빈생성 - 의존관계주입 – "초기화콜백" -사용 - "소멸전콜백" - 스프링 종료
->> 1. implements InitializingBean, DisposableBean 은 단점 떄문에 요즘은 잘 사용하지 않음 
-- 상속받아서 사용하는데 부담, 외부 라이브러리를 변경할 수 없음, 메서드명 변경 불가능 등 (사용X)
->> 2. @Bean(initMethod = "init", destroyMethod = "close")
-- 외부라이브러리 어노테이션이 작동하지 않음, 외부라이브러리에서 빈생명주기콜백 적용할 때는 요걸 사용하자
->> 3. @PostConstruct, @PreDestroy
-- javax -> 자바진영에서 공식적으로 지원하는 것 
-  - Spring 이 아니더라도 그대로 적용이 됨 
-  - spring에서 권장하는 방식이기도 함
+>>1. implements InitializingBean, DisposableBean 은 단점 떄문에 요즘은 잘 사용하지 않음
+   - 상속받아서 사용하는데 부담, 외부 라이브러리를 변경할 수 없음, 메서드명 변경 불가능 등 (사용X)
+>>2. @Bean(initMethod = "init", destroyMethod = "close")
+   - 외부라이브러리 어노테이션이 작동하지 않음, 외부라이브러리에서 빈생명주기콜백 적용할 때는 요걸 사용하자
+>>3. @PostConstruct, @PreDestroy
+   - javax -> 자바진영에서 공식적으로 지원하는 것 
+     - Spring 이 아니더라도 그대로 적용이 됨 
+     - spring에서 권장하는 방식이기도 함
 
-
-
+* [빈스코프]
+  - 싱글 : 기본 스코프, 스프링 컨테이너와 똑같음
+  - 프로토타입 : 스프링 컨테이너는 프로토타입 빈의 생성, 의e존관계 주입, 초기화 까지만 관여 
+    - 초기화 메서드O / 종료메서드X
+  - 웹 관련 스코프
+    - application : 웹의 서블릿 컨텍스트와 같은 범위로 유지되는 스코프
+    - session :웹 세션이 생성되고 종료될 떄 까지 유지되는 스코프
+    - application : 웹 요청이 들어오고 나갈 떄 까지 유지되는 스코프
+  * 싱글톤과 프로토타입을 함꼐 사용하는 경우 ( 아래 참조 )
+    - SingletonWithPrototypeTest1
+  * 의존관계의 외부주입(DI:Dependency Injection) >> 직접 찾는 것을(DL: Dependency Lookup)
+    - 싱글톤 안에서 프로토타입을 객체를 사용해야할 때, 객체를 쓰고 버리는게 의도 
+    - 하지만, DL은 스프링에 종속적인 코드가 됨 + 단위 테스트가 어려워짐 
+      - applicationContext 자체를 상속받아 사용하는 것
+    - 따라서, DL 기능만 딱 받는 기능을 스프링에게 양도 
+      - ObjectProvider<스프링에서 찾을 객체> -> 변수명.getObject 로 활용 (편의기능도 제공)
+      - 딱 찾아만주는 ObjectFactory 도 있음 
+      - 이 기능은 prototype 에만 국한된 것이 아니라, 뭔가를 spring 에서 찾아올 때 사용한다 로 생각
+      - +자바표준 Provider<스프링에서 찾을 객체> -> 변수명.get 로 활용 (그래들 추가 필요)
+    ~~~
+    ObjectProvider(스프링기능) : 스프링 바로 사용 가능, 편의기능 제공
+    Provider(자바표준) : 의존관계 주입 필요, 표준(javax), 기능 심플
+    ~~~
