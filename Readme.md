@@ -92,3 +92,8 @@ ___
     ObjectProvider(스프링기능) : 스프링 바로 사용 가능, 편의기능 제공
     Provider(자바표준) : 의존관계 주입 필요, 표준(javax), 기능 심플
     ~~~
+* [웹스코프]
+  * repuest 객체를 통한 이해 (session application)
+    - UUID.randomUUID().toString() : 매에에에우 랜덤으로 나올 수 있는 ID
+    - Scope("request)" 설정해도 고객 요청인 request 스프링 생성 시점에 객체 받을 수 없어 오류 
+    - -> ObjectProvider 사용해서 request 객체 받아와 필요 시점에 호출
